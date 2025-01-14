@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react"
 import Cookies from "js-cookie"
 import confetti from "canvas-confetti"
+import HabitCard from "../components/HabitCard"
 
 interface Habit {
   id: number
@@ -196,80 +197,26 @@ export default function Home() {
         <section>
           <h2 className="text-xl font-semibold mb-4">Active Habits</h2>
           {activeHabits.map((habit) => (
-            <div
+            <HabitCard
               key={habit.id}
-              className="bg-white shadow-md rounded-lg p-4 mb-4"
-            >
-              <div className="flex justify-between items-center">
-                <span className="font-medium">{habit.name}</span>
-                <span className="text-sm text-gray-500">
-                  {habit.progress}/{habit.total}
-                </span>
-              </div>
-              <div className="w-full bg-gray-200 h-2 rounded-full mt-2">
-                <div
-                  className="bg-green-500 h-2 rounded-full"
-                  style={{ width: `${(habit.progress / habit.total) * 100}%` }}
-                ></div>
-              </div>
-              <div className="flex space-x-2 mt-4">
-                <button
-                  onClick={() => handleCheck(habit.id)}
-                  className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600"
-                >
-                  Add Progress
-                </button>
-                <button
-                  onClick={() => handleReduce(habit.id)}
-                  className="bg-yellow-500 text-white px-4 py-2 rounded-md hover:bg-yellow-600"
-                >
-                  Reduce Progress
-                </button>
-                <button
-                  onClick={() => handleDelete(habit.id)}
-                  className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
-                >
-                  Delete
-                </button>
-              </div>
-            </div>
+              habit={habit}
+              onCheck={handleCheck}
+              onReduce={handleReduce}
+              onDelete={handleDelete}
+            />
           ))}
         </section>
 
         <section className="mt-8">
           <h2 className="text-xl font-semibold mb-4">Completed Habits</h2>
           {completedHabits.map((habit) => (
-            <div
+            <HabitCard
               key={habit.id}
-              className="bg-white shadow-md rounded-lg p-4 mb-4"
-            >
-              <div className="flex justify-between items-center">
-                <span className="font-medium">{habit.name}</span>
-                <span className="text-sm text-gray-500">
-                  {habit.progress}/{habit.total}
-                </span>
-              </div>
-              <div className="w-full bg-gray-200 h-2 rounded-full mt-2">
-                <div
-                  className="bg-green-500 h-2 rounded-full"
-                  style={{ width: `${(habit.progress / habit.total) * 100}%` }}
-                ></div>
-              </div>
-              <div className="flex space-x-2 mt-4">
-                <button
-                  onClick={() => handleReduce(habit.id)}
-                  className="bg-yellow-500 text-white px-4 py-2 rounded-md hover:bg-yellow-600"
-                >
-                  Reduce Progress
-                </button>
-                <button
-                  onClick={() => handleDelete(habit.id)}
-                  className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
-                >
-                  Delete
-                </button>
-              </div>
-            </div>
+              habit={habit}
+              onCheck={handleCheck}
+              onReduce={handleReduce}
+              onDelete={handleDelete}
+            />
           ))}
         </section>
 
