@@ -20,4 +20,17 @@ Default.args = {
   daysOfWeek: ["S", "M", "T", "W", "T", "F", "S"],
   icon: "📚",
   color: "bg-purple-900",
+  isComplete: false,
+}
+
+export const Complete = Template.bind({})
+Complete.args = {
+  day: 1,
+  habitName: "Read",
+  progress: 7,
+  total: 7,
+  daysOfWeek: ["S", "M", "T", "W", "T", "F", "S"],
+  icon: "📚",
+  color: "bg-purple-900",
+  isComplete: true,
 }

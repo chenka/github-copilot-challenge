@@ -13,17 +13,19 @@ export const Default = Template.bind({})
 Default.args = {
   habits: [
     {
+      id: 1,
       name: "Run",
       color: "Standard",
-      startDate: new Date(),
+      startDate: "2023-01-01",
       frequency: 3,
       weekStart: "Sunday",
       reminders: 0,
     },
     {
+      id: 2,
       name: "Meditate",
       color: "Soft",
-      startDate: new Date(),
+      startDate: "2023-01-01",
       frequency: 5,
       weekStart: "Monday",
       reminders: 1,
