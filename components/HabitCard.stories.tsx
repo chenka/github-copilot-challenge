@@ -17,10 +17,10 @@ Default.args = {
   habitName: "Read",
   progress: 3,
   total: 7,
-  daysOfWeek: ["S", "M", "T", "W", "T", "F", "S"],
-  icon: "📚",
   color: "bg-purple-900",
   isComplete: false,
+  highlightDays: ["Mon", "Tue", "Wed"],
+  timeFrame: "DAY(S)",
 }
 
 export const Complete = Template.bind({})
@@ -29,8 +29,8 @@ Complete.args = {
   habitName: "Read",
   progress: 7,
   total: 7,
-  daysOfWeek: ["S", "M", "T", "W", "T", "F", "S"],
-  icon: "📚",
   color: "bg-purple-900",
   isComplete: true,
+  highlightDays: ["Mon", "Tue", "Wed"],
+  timeFrame: "DAY(S)",
 }

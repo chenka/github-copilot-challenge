@@ -5,10 +5,10 @@ interface HabitCardProps {
   habitName: string
   progress: number
   total: number
-  daysOfWeek: string[]
-  icon: string
   color: string
   isComplete: boolean
+  highlightDays: string[]
+  timeFrame: "DAY(S)" | "WEEK(S)"
 }
 
 const HabitCard: React.FC<HabitCardProps> = ({
@@ -16,34 +16,38 @@ const HabitCard: React.FC<HabitCardProps> = ({
   habitName,
   progress,
   total,
-  daysOfWeek,
-  icon,
   color,
   isComplete,
+  highlightDays,
+  timeFrame,
 }) => {
+  const daysOfWeek = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+
   return (
     <div
-      className={`rounded-lg p-4 flex justify-between items-center border border-gray-300 ${
-        isComplete ? "bg-green-500" : color
-      }`}
+      className={`rounded-lg p-4 flex justify-between items-center border border-gray-300`}
+      style={{ backgroundColor: isComplete ? "#10b981" : color }}
     >
       <div>
         <div className="text-3xl font-bold">{day}</div>
-        <div className="text-xs text-gray-300">DAY</div>
+        <div className="text-xs text-gray-300">{timeFrame}</div>
         <div className="flex items-center mt-2">
-          <span className="text-green-500 text-lg">{icon}</span>
-          <span className="ml-2 font-semibold text-white">{habitName}</span>
+          <span className="font-semibold text-white">{habitName}</span>
         </div>
         <div className="flex items-center mt-2">
           <div className="flex">
             {daysOfWeek.map((day, index) => (
               <span
                 key={index}
-                className={`${
-                  day === "S" ? "bg-purple-500 text-white" : "text-gray-500"
-                } rounded-full w-6 h-6 flex items-center justify-center text-sm`}
+                className={`rounded-full w-6 h-6 flex items-center justify-center text-sm`}
+                style={{
+                  backgroundColor: highlightDays.includes(day)
+                    ? "#8b5cf6"
+                    : "transparent",
+                  color: highlightDays.includes(day) ? "white" : "#6b7280",
+                }}
               >
-                {day}
+                {day.slice(0, 1)}
               </span>
             ))}
           </div>
@@ -53,9 +57,8 @@ const HabitCard: React.FC<HabitCardProps> = ({
         </div>
       </div>
       <button
-        className={`rounded-full w-8 h-8 flex items-center justify-center ${
-          isComplete ? "bg-green-700" : "bg-purple-500"
-        }`}
+        className={`rounded-full w-8 h-8 flex items-center justify-center`}
+        style={{ backgroundColor: isComplete ? "#047857" : "#8b5cf6" }}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
