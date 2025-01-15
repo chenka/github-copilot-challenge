@@ -6,30 +6,30 @@ const toggleHabit = async (req: NextApiRequest, res: NextApiResponse) => {
     const { id } = req.query
 
     try {
-      // Fetch the habit from the database
-      const habit = await prisma.habit.findUnique({
-        where: { id: Number(id) },
-      })
-
-      if (!habit) {
-        return res.status(404).json({ error: "Habit not found" })
-      }
-
-      // Toggle the habit completion status
-      const isComplete = habit.progress.completed === habit.progress.total
-      const updatedHabit = await prisma.habit.update({
-        where: { id: Number(id) },
-        data: {
-          progress: {
-            completed: isComplete
-              ? habit.progress.completed - 1
-              : habit.progress.completed + 1,
+      // Fetch the habit tracking entry for today
+      const today = new Date()
+      const habitTracking = await prisma.habitTracking.findFirst({
+        where: {
+          habitId: Number(id),
+          date: {
+            gte: new Date(today.setHours(0, 0, 0, 0)),
+            lt: new Date(today.setHours(23, 59, 59, 999)),
           },
         },
       })
 
-      res.status(200).json(updatedHabit)
-    } catch (error) {
+      if (!habitTracking) {
+        return res.status(404).json({ error: "Habit tracking entry not found" })
+      }
+
+      // Toggle the habit tracking entry
+      const updatedHabitTracking = await prisma.habitTracking.update({
+        where: { id: habitTracking.id },
+        data: { date: new Date() }, // Example update, adjust as needed
+      })
+
+      res.status(200).json(updatedHabitTracking)
+    } catch {
       res.status(500).json({ error: "Internal server error" })
     }
   } else {

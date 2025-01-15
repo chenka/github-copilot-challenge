@@ -1,7 +1,10 @@
 import { NextRequest, NextResponse } from "next/server"
 import prisma from "@/lib/prisma" // Assuming Prisma is used for database operations
 
-export const POST = async (req: NextRequest, { params }) => {
+export const POST = async (
+  req: NextRequest,
+  { params }: { params: { id: string } }
+) => {
   const { id } = await params
   const currentDate = new Date().toISOString().split("T")[0] + "T00:00:00.000Z"
 
