@@ -6,16 +6,16 @@ const prisma = new PrismaClient()
 
 const resetDatabase = async () => {
   try {
-    console.log("Dropping existing database...")
-    execSync('psql -U postgres -c "DROP DATABASE IF EXISTS habit_tracker;"')
-    console.log("Database dropped.")
+    console.log("Resetting database...")
 
-    console.log("Creating new database...")
-    execSync('psql -U postgres -c "CREATE DATABASE habit_tracker;"')
-    console.log("Database created.")
+    // Drop all tables
+    await prisma.$executeRaw`DROP SCHEMA public CASCADE`
+    await prisma.$executeRaw`CREATE SCHEMA public`
+
+    console.log("Database schema reset.")
 
     console.log("Running migrations...")
-    execSync("npx prisma migrate dev --name init")
+    execSync("npx prisma migrate deploy")
     console.log("Migrations applied.")
 
     console.log("Seeding database...")
