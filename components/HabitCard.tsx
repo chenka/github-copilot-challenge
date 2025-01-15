@@ -9,6 +9,7 @@ interface HabitCardProps {
   isComplete: boolean
   highlightDays: string[]
   timeFrame: "DAY(S)" | "WEEK(S)"
+  onToggleComplete: () => void
 }
 
 const HabitCard: React.FC<HabitCardProps> = ({
@@ -20,6 +21,7 @@ const HabitCard: React.FC<HabitCardProps> = ({
   isComplete,
   highlightDays,
   timeFrame,
+  onToggleComplete,
 }) => {
   const daysOfWeek = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
 
@@ -59,6 +61,7 @@ const HabitCard: React.FC<HabitCardProps> = ({
       <button
         className={`rounded-full w-8 h-8 flex items-center justify-center`}
         style={{ backgroundColor: isComplete ? "#047857" : "#8b5cf6" }}
+        onClick={onToggleComplete}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"

@@ -54,6 +54,27 @@ const HabitList: React.FC = () => {
 
   const currentWeekDays = getCurrentWeekDays()
 
+  const toggleComplete = async (habitId: number) => {
+    const updatedHabits = habits.map((habit) => {
+      if (habit.id === habitId) {
+        const isComplete = habit.progress.completed === habit.progress.total
+        const updatedCompleted = isComplete
+          ? habit.progress.completed - 1
+          : habit.progress.completed + 1
+        return {
+          ...habit,
+          progress: {
+            ...habit.progress,
+            completed: updatedCompleted,
+          },
+        }
+      }
+      return habit
+    })
+    setHabits(updatedHabits)
+    await fetch(`/api/habits/${habitId}/toggle`, { method: "POST" })
+  }
+
   return (
     <div className="p-4">
       {habits.map((habit) => (
@@ -70,6 +91,7 @@ const HabitList: React.FC = () => {
               currentWeekDays
             )}
             timeFrame="DAY(S)"
+            onToggleComplete={() => toggleComplete(habit.id)}
           />
           <button
             className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-2"
