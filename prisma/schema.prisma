@@ -8,12 +8,21 @@ generator client {
 }
 
 model Habit {
-    id          Int      @id @default(autoincrement())
-    name        String
-    description String?
-    startDate   DateTime
-    frequency   Int
-    color       String
-    createdAt   DateTime @default(now())
-    updatedAt   DateTime @updatedAt
+    id            Int             @id @default(autoincrement())
+    name          String
+    description   String?
+    startDate     DateTime
+    frequency     Int
+    color         String
+    createdAt     DateTime        @default(now())
+    updatedAt     DateTime        @updatedAt
+    habitTracking HabitTracking[]
+}
+
+model HabitTracking {
+    id        Int      @id @default(autoincrement())
+    habitId   Int
+    date      DateTime
+    completed Boolean
+    habit     Habit    @relation(fields: [habitId], references: [id])
 }

@@ -11,6 +11,7 @@ This document outlines the coding style and best practices for the Habit Tracker
 - Write descriptive variable and function names.
 - Keep functions small and focused on a single task.
 - Use arrow functions for anonymous functions.
+- Use Next.js with App router.
 
 ## TypeScript
 

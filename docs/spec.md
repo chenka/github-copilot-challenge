@@ -70,7 +70,7 @@ The Habit Tracker App allows users to create, manage, and track habits. Users ca
 
 ### Frontend
 
-- **Framework**: Astro.js
+- **Framework**: Next.js with app router.
 - **Technologies**: TypeScript, React, TailwindCSS for styling.
 - **Components**:
   - Input fields for text, date, and number.
