@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from "next/server"
-import prisma from "@/lib/prisma" // Assuming Prisma is used for database operations
+import prisma from "@/lib/prisma"
 
 export const POST = async (
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) => {
   const { id } = await params
   const currentDate = new Date().toISOString().split("T")[0] + "T00:00:00.000Z"
@@ -47,18 +47,8 @@ export const POST = async (
       include: { habitTracking: true },
     })
 
-    return NextResponse.json(updatedHabit, { status: 200 })
-  } catch (error) {
-    console.log(error)
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    )
+    return NextResponse.json(updatedHabit)
+  } catch {
+    return NextResponse.json({ error: "An error occurred" }, { status: 500 })
   }
-}
-
-export const config = {
-  api: {
-    bodyParser: false,
-  },
 }

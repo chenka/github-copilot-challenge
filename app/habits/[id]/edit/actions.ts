@@ -1,19 +1,22 @@
 "use server"
 import prisma from "../../../../lib/prisma"
-import { Habit } from "../../../types"
 
-export const getHabit = async (id: string): Promise<Habit> => {
+export const getHabit = async (id: string) => {
   const habit = await prisma.habit.findUnique({
     where: { id: parseInt(id, 10) },
   })
-  console.log(habit)
   return habit
 }
 
 export const updateHabit = async (
   id: string,
-  habit: Partial<Habit>
-): Promise<void> => {
+  habit: {
+    name?: string
+    startDate?: string
+    frequency?: string
+    color?: string
+  }
+) => {
   await prisma.habit.update({
     where: { id: parseInt(id, 10) },
     data: {
@@ -25,7 +28,7 @@ export const updateHabit = async (
   })
 }
 
-export const deleteHabit = async (id: string): Promise<void> => {
+export const deleteHabit = async (id: string) => {
   await prisma.habitTracking.deleteMany({
     where: { habitId: parseInt(id, 10) },
   })

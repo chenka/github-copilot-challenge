@@ -5,7 +5,8 @@ import { getHabit, updateHabit, deleteHabit } from "./actions"
 
 const EditHabit: React.FC = () => {
   const router = useRouter()
-  const { id: habitId } = useParams()
+  const { id } = useParams()
+  const habitId = Array.isArray(id) ? id[0] : id
 
   const [habit, setHabit] = useState({
     name: "",
@@ -18,10 +19,14 @@ const EditHabit: React.FC = () => {
     const fetchHabit = async () => {
       if (habitId) {
         const data = await getHabit(habitId)
-        setHabit({
-          ...data,
-          startDate: new Date(data.startDate).toISOString().split("T")[0],
-        })
+        if (data) {
+          setHabit({
+            name: data.name || "",
+            startDate: new Date(data.startDate).toISOString().split("T")[0],
+            frequency: data.frequency?.toString() || "",
+            color: data.color || "#3b82f6",
+          })
+        }
       }
     }
 
@@ -34,6 +39,7 @@ const EditHabit: React.FC = () => {
     const formData = new FormData(e.currentTarget)
     const data = Object.fromEntries(formData.entries())
 
+    if (!habitId) return
     await updateHabit(habitId, {
       name: data.name as string,
       startDate: data.startDate as string,
@@ -45,7 +51,9 @@ const EditHabit: React.FC = () => {
   }
 
   const handleDelete = async () => {
-    await deleteHabit(habitId)
+    if (habitId) {
+      await deleteHabit(habitId)
+    }
     router.push("/")
   }
 

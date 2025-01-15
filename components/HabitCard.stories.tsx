@@ -1,15 +1,13 @@
 import React from "react"
-import { ComponentStory, ComponentMeta } from "@storybook/react"
+import { StoryFn, Meta } from "@storybook/react"
 import HabitCard from "./HabitCard"
 
 export default {
   title: "Components/HabitCard",
   component: HabitCard,
-} as ComponentMeta<typeof HabitCard>
+} as Meta<typeof HabitCard>
 
-const Template: ComponentStory<typeof HabitCard> = (args) => (
-  <HabitCard {...args} />
-)
+const Template: StoryFn<typeof HabitCard> = (args) => <HabitCard {...args} />
 
 export const Default = Template.bind({})
 Default.args = {
