@@ -1,7 +1,7 @@
 "use client"
 import React, { useEffect, useState } from "react"
 import { useRouter, useParams } from "next/navigation"
-import { getHabit, updateHabit } from "./actions"
+import { getHabit, updateHabit, deleteHabit } from "./actions"
 
 const EditHabit: React.FC = () => {
   const router = useRouter()
@@ -18,7 +18,10 @@ const EditHabit: React.FC = () => {
     const fetchHabit = async () => {
       if (habitId) {
         const data = await getHabit(habitId)
-        setHabit(data)
+        setHabit({
+          ...data,
+          startDate: new Date(data.startDate).toISOString().split("T")[0],
+        })
       }
     }
 
@@ -38,6 +41,11 @@ const EditHabit: React.FC = () => {
       color: data.color as string,
     })
 
+    router.push("/")
+  }
+
+  const handleDelete = async () => {
+    await deleteHabit(habitId)
     router.push("/")
   }
 
@@ -115,6 +123,12 @@ const EditHabit: React.FC = () => {
           Save
         </button>
       </form>
+      <button
+        className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-4"
+        onClick={handleDelete}
+      >
+        Delete Habit
+      </button>
     </div>
   )
 }

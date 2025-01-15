@@ -24,3 +24,12 @@ export const updateHabit = async (
     },
   })
 }
+
+export const deleteHabit = async (id: string): Promise<void> => {
+  await prisma.habitTracking.deleteMany({
+    where: { habitId: parseInt(id, 10) },
+  })
+  await prisma.habit.delete({
+    where: { id: parseInt(id, 10) },
+  })
+}

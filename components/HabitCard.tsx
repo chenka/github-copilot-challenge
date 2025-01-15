@@ -26,7 +26,7 @@ const HabitCard: React.FC<HabitCardProps> = ({
   return (
     <div
       className={`rounded-lg p-4 flex justify-between items-center border border-gray-300`}
-      style={{ backgroundColor: isComplete ? "#10b981" : color }}
+      style={{ backgroundColor: isComplete ? "" : color }}
     >
       <div>
         <div className="text-3xl font-bold">{day}</div>
