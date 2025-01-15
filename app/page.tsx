@@ -40,6 +40,7 @@ const getHighlightDays = (
 
 const HabitList: React.FC = () => {
   const [habits, setHabits] = useState<Habit[]>([])
+  const router = useRouter()
 
   useEffect(() => {
     const fetchHabits = async () => {
@@ -56,20 +57,27 @@ const HabitList: React.FC = () => {
   return (
     <div className="p-4">
       {habits.map((habit) => (
-        <HabitCard
-          key={habit.id}
-          day={habit.progress.completed}
-          habitName={habit.name}
-          progress={habit.progress.completed}
-          total={habit.progress.total}
-          color={habit.color}
-          isComplete={habit.progress.completed === habit.progress.total}
-          highlightDays={getHighlightDays(
-            habit.progress.completedDays,
-            currentWeekDays
-          )}
-          timeFrame="DAY(S)"
-        />
+        <div key={habit.id} className="mb-4">
+          <HabitCard
+            day={habit.progress.completed}
+            habitName={habit.name}
+            progress={habit.progress.completed}
+            total={habit.progress.total}
+            color={habit.color}
+            isComplete={habit.progress.completed === habit.progress.total}
+            highlightDays={getHighlightDays(
+              habit.progress.completedDays,
+              currentWeekDays
+            )}
+            timeFrame="DAY(S)"
+          />
+          <button
+            className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-2"
+            onClick={() => router.push(`/habits/${habit.id}/edit`)}
+          >
+            Edit Habit
+          </button>
+        </div>
       ))}
     </div>
   )
