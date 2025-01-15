@@ -55,24 +55,10 @@ const HabitList: React.FC = () => {
   const currentWeekDays = getCurrentWeekDays()
 
   const toggleComplete = async (habitId: number) => {
-    const updatedHabits = habits.map((habit) => {
-      if (habit.id === habitId) {
-        const isComplete = habit.progress.completed === habit.progress.total
-        const updatedCompleted = isComplete
-          ? habit.progress.completed - 1
-          : habit.progress.completed + 1
-        return {
-          ...habit,
-          progress: {
-            ...habit.progress,
-            completed: updatedCompleted,
-          },
-        }
-      }
-      return habit
-    })
-    setHabits(updatedHabits)
     await fetch(`/api/habits/${habitId}/toggle`, { method: "POST" })
+    const response = await fetch("/api/habits")
+    const data = await response.json()
+    setHabits(data)
   }
 
   return (
