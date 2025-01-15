@@ -53,6 +53,7 @@ const HabitList: React.FC = () => {
   }, [])
 
   const currentWeekDays = getCurrentWeekDays()
+  const currentDate = new Date().toISOString().split("T")[0]
 
   const toggleComplete = async (habitId: number) => {
     await fetch(`/api/habits/${habitId}/toggle`, { method: "POST" })
@@ -71,7 +72,7 @@ const HabitList: React.FC = () => {
             progress={habit.progress.completed}
             total={habit.progress.total}
             color={habit.color}
-            isComplete={habit.progress.completed === habit.progress.total}
+            isComplete={!habit.progress.completedDays.includes(currentDate)}
             highlightDays={getHighlightDays(
               habit.progress.completedDays,
               currentWeekDays
