@@ -14,7 +14,6 @@ const CreateHabit: React.FC = () => {
 
     await createHabit({
       name: data.name as string,
-      description: data.description as string,
       startDate: data.startDate as string,
       frequency: data.frequency as string,
       color: data.color as string,
@@ -35,17 +34,6 @@ const CreateHabit: React.FC = () => {
             className="bg-gray-800 text-white w-full rounded-md p-2"
             placeholder="Enter habit name"
             required
-          />
-        </div>
-        <div className="mb-4">
-          <label className="block text-gray-400 text-sm mb-2">
-            Description
-          </label>
-          <input
-            type="text"
-            name="description"
-            className="bg-gray-800 text-white w-full rounded-md p-2"
-            placeholder="Enter habit description"
           />
         </div>
         <div className="mb-4">

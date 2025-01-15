@@ -1,6 +1,7 @@
 "use client"
 import React, { useEffect, useState } from "react"
 import HabitCard from "../components/HabitCard"
+import { useRouter } from "next/navigation"
 
 interface Habit {
   id: number
@@ -75,9 +76,21 @@ const HabitList: React.FC = () => {
 }
 
 const Page: React.FC = () => {
+  const router = useRouter()
+
+  const navigateToCreateHabit = () => {
+    router.push("/habits/new")
+  }
+
   return (
     <div className="container mx-auto">
       <h1 className="text-2xl font-bold mb-4">Habit Tracker</h1>
+      <button
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4"
+        onClick={navigateToCreateHabit}
+      >
+        Create New Habit
+      </button>
       <HabitList />
     </div>
   )
