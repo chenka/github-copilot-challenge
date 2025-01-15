@@ -31,10 +31,10 @@ const main = async () => {
 
   await prisma.habitTracking.createMany({
     data: [
-      { habitId: 1, date: new Date("2023-01-01"), completed: true },
-      { habitId: 1, date: new Date("2023-01-02"), completed: false },
-      { habitId: 2, date: new Date("2023-01-02"), completed: true },
-      { habitId: 3, date: new Date("2023-01-03"), completed: true },
+      { habitId: 1, date: new Date("2023-01-01") },
+      { habitId: 1, date: new Date("2023-01-02") },
+      { habitId: 2, date: new Date("2023-01-02") },
+      { habitId: 3, date: new Date("2023-01-03") },
     ],
   })
 }

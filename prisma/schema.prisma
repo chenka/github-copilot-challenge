@@ -20,9 +20,8 @@ model Habit {
 }
 
 model HabitTracking {
-    id        Int      @id @default(autoincrement())
-    habitId   Int
-    date      DateTime
-    completed Boolean
-    habit     Habit    @relation(fields: [habitId], references: [id])
+    id      Int      @id @default(autoincrement())
+    habitId Int
+    date    DateTime
+    habit   Habit    @relation(fields: [habitId], references: [id])
 }

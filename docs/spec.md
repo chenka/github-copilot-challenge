@@ -16,7 +16,6 @@ The Habit Tracker App allows users to create, manage, and track habits. Users ca
   - Start Date: Allows users to set the habit's start date.
   - Weekly Frequency: Users can select how many days per week they aim to complete the habit (1-7 days).
   - Calendar Week Start: Users can choose the day their calendar week starts (Sunday or Monday).
-  - Reminders: Number of reminders for the habit (e.g., "0 reminders").
   - Habit Color: Select a color to represent the habit from predefined palettes: Standard, Bright, and Soft.
 
 ### 2. **Habit Visualization**

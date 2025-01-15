@@ -23,7 +23,7 @@ const HabitCard: React.FC<HabitCardProps> = ({
 }) => {
   return (
     <div
-      className={`rounded-lg p-4 flex justify-between items-center ${
+      className={`rounded-lg p-4 flex justify-between items-center border border-gray-300 ${
         isComplete ? "bg-green-500" : color
       }`}
     >

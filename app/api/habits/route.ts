@@ -2,8 +2,30 @@ import { NextResponse } from "next/server"
 import prisma from "../../../lib/prisma"
 
 export async function GET() {
-  const habits = await prisma.habit.findMany()
-  return NextResponse.json(habits)
+  const habits = await prisma.habit.findMany({
+    include: {
+      habitTracking: true,
+    },
+  })
+
+  const formattedHabits = habits.map((habit) => {
+    const completedDays = habit.habitTracking.map(
+      (tracking) => tracking.date.toISOString().split("T")[0]
+    )
+
+    return {
+      id: habit.id,
+      name: habit.name,
+      color: habit.color,
+      progress: {
+        completed: completedDays.length,
+        total: habit.frequency,
+        completedDays,
+      },
+    }
+  })
+
+  return NextResponse.json(formattedHabits)
 }
 
 export async function POST(req: Request) {
@@ -18,8 +40,4 @@ export async function POST(req: Request) {
     },
   })
   return NextResponse.json(newHabit, { status: 201 })
-}
-
-export async function handler() {
-  return NextResponse.error()
 }
